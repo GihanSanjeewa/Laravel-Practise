@@ -15,7 +15,9 @@ class TodoController extends Controller
         $this->task = new Todo();
     }
     public function index(){
-        return view('pages.todo.index');
+        $response['task'] = $this->task->all(); // to get data from the databse table
+   
+        return view('pages.todo.index')->with($response);
     }
 
     /*$request kiyla hdnne ewana request ek catch kragnna*/
@@ -36,5 +38,22 @@ class TodoController extends Controller
         mema danne models->todo eke ara widihata database eke table colums mention krla neththan 
 
         */
+    }
+
+    public function delete($task_id)/*methanata tsk_id nethuwa mokk dunnth gnnwa*/
+    {
+        $task = $this->task->find($task_id);
+        $task->delete();
+
+        return redirect()->back();
+    }
+
+    public function done($task_id)
+    {
+        $task = $this->task->find($task_id);
+        $task->done = 1;
+        $task->update();
+
+        return redirect()->back();
     }
 }
