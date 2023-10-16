@@ -32,3 +32,4 @@ Route::prefix('/todo')->group(function(){
 
     Route::get('/{task_id}/done',[TodoController::class,"done"]) -> name('todo.done');
 });
+

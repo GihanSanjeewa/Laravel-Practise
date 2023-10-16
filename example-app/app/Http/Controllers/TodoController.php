@@ -6,16 +6,17 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
-class TodoController extends Controller
+class TodoController extends ParentController
 {
 
     protected $task;
 
-    public function __construct(){
+    /*public function __construct(){
         $this->task = new Todo();
     }
+*/
     public function index(){
-        $response['task'] = $this->task->all(); // to get data from the databse table
+        $response['task'] = Todo::all(); // to get data from the databse table
    
         return view('pages.todo.index')->with($response);
     }

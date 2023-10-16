@@ -67,7 +67,7 @@
         .page-title{
             padding-top: 5vh;
             font-size: 5rem;
-            color: green;
+            color: green; 
         }
     </style>
 @endpush
