@@ -3,21 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Todo;
+use domain\facade\TodoFacade;
 use Illuminate\Http\Request;
 
 class TodoController extends ParentController
 {
-
-    protected $task;
-
-    /*public function __construct(){
-        $this->task = new Todo();
-    }
-*/
     public function index(){
-        $response['task'] = Todo::all(); // to get data from the databse table
-   
+        $response['task'] = TodoFacade::all();
         return view('pages.todo.index')->with($response);
     }
 
@@ -26,7 +18,7 @@ class TodoController extends ParentController
         
         /*dd($request); //to view request we use this */
 
-        $this->task->create($request->all()); 
+        TodoFacade::store($request->all());
         /*models->todo eke database table eke tittle ekyi done ekyi denme neththan mema data pass krnn be */
 
         return redirect()->back(); 
@@ -43,18 +35,13 @@ class TodoController extends ParentController
 
     public function delete($task_id)/*methanata tsk_id nethuwa mokk dunnth gnnwa*/
     {
-        $task = $this->task->find($task_id);
-        $task->delete();
-
+       TodoFacade::delete($task_id);
         return redirect()->back();
     }
 
     public function done($task_id)
     {
-        $task = $this->task->find($task_id);
-        $task->done = 1;
-        $task->update();
-
+        TodoFacade::done($task_id);
         return redirect()->back();
     }
 }
